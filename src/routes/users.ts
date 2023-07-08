@@ -2,10 +2,17 @@ import { randomUUID } from 'node:crypto'
 import { FastifyInstance } from 'fastify'
 import { z } from 'zod'
 import { knex } from '../database'
+import { checkSessionIdExists } from '../middlewares/check-session-id-exists'
 
 export async function usersRoutes(app: FastifyInstance) {
-  app.get('/', async () => {
-    const users = await knex('users').select()
+  app.get('/', { preHandler: [checkSessionIdExists] }, async (request) => {
+    const { sessionId } = request.cookies
+
+    const users = await knex('users')
+      .where({
+        session_id: sessionId,
+      })
+      .select()
 
     return { users }
   })
