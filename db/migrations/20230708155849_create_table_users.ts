@@ -5,7 +5,10 @@ export async function up(knex: Knex): Promise<void> {
     table.uuid('id').primary()
     table.uuid('username').unique()
     table.uuid('session_id').index()
-    table.timestamp('created_at').defaultTo(knex.fn.now()).notNullable()
+    table
+      .timestamp('created_at', { useTz: true })
+      .defaultTo(knex.fn.now())
+      .notNullable()
   })
 }
 
