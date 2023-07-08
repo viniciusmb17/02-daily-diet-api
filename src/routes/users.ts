@@ -5,7 +5,9 @@ import { knex } from '../database'
 
 export async function usersRoutes(app: FastifyInstance) {
   app.get('/', async () => {
-    return { message: 'users route' }
+    const users = await knex('users').select()
+
+    return { users }
   })
 
   app.post('/', async (request, reply) => {
