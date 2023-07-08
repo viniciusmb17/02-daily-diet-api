@@ -11,3 +11,6 @@ db/*.db
 # Build
 build
 dist
+
+# VSCode Settings
+.vscode
