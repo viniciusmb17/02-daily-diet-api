@@ -12,8 +12,8 @@
   - Está dentro ou não da dieta
 - [x] Deve ser possível editar uma refeição, podendo alterar todos os dados acima
 - [x] Deve ser possível apagar uma refeição
-- [ ] Deve ser possível listar todas as refeições de um usuário
-- [ ] Deve ser possível visualizar uma única refeição
+- [x] Deve ser possível listar todas as refeições de um usuário
+- [x] Deve ser possível visualizar uma única refeição
 - [ ] Deve ser possível recuperar as métricas de um usuário
   - Quantidade total de refeições registradas
   - Quantidade total de refeições dentro da dieta
@@ -22,9 +22,5 @@
 
 ## Regras de Negócios (RN)
 
-- [ ] As refeições devem ser relacionadas a um usuário
-- [ ] O usuário só pode visualizar, editar e apagar as refeições o qual ele criou
-
-## Requisitos Não Funcionais (RNF)
-
-- [ ] A segurança dos dados deve ser garantida através de criptografia e autenticação
+- [x] As refeições devem ser relacionadas a um usuário
+- [x] O usuário só pode visualizar, editar e apagar as refeições o qual ele criou

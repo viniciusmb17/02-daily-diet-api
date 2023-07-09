@@ -7,9 +7,48 @@ import { randomUUID } from 'node:crypto'
 import { format } from 'date-fns'
 
 export async function mealsRoutes(app: FastifyInstance) {
-  app.get('/', async () => {
-    return { message: 'meals route' }
-  })
+  app.get(
+    '/',
+    { preHandler: [checkSessionIdExists, getUserBySessionId] },
+    async (request) => {
+      const { user } = request
+
+      const meals = await knex('meals')
+        .where({
+          user_id: user?.id,
+        })
+        .select()
+
+      return { user, meals }
+    },
+  )
+  app.get(
+    '/:id',
+    { preHandler: [checkSessionIdExists, getUserBySessionId] },
+    async (request, reply) => {
+      const { user } = request
+
+      const getMealsParamsSchema = z.object({
+        id: z.string().uuid(),
+      })
+
+      const { id } = getMealsParamsSchema.parse(request.params)
+
+      const meal = await knex('meals')
+        .where({
+          id,
+          user_id: user?.id,
+        })
+        .select()
+        .first()
+
+      if (!meal) {
+        return reply.status(404).send({ message: 'Meal not found' })
+      }
+
+      return { meal }
+    },
+  )
 
   app.post(
     '/',
